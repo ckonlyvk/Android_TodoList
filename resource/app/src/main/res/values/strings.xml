@@ -20,6 +20,7 @@
 <!--    Dialog-->
     <string name="add_project_label">Add New Project</string>
     <string name="add_label">Add</string>
+    <string name="cancle_label">Cancle</string>
 
     <string name="title_label">Title</string>
     <string name="title_placeholder">Please input title</string>

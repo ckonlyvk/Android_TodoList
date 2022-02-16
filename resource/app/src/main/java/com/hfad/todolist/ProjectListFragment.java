@@ -20,7 +20,9 @@ import com.hfad.todolist.models.ProjectList;
 import java.util.List;
 
 public class ProjectListFragment extends Fragment {
+    private FragmentProjectListBinding binding;
     private ProjectList mProjectList;
+    private ProjectAdapter mAdapter;
 
     public static Fragment newInstance() {
         return new ProjectListFragment();
@@ -37,13 +39,20 @@ public class ProjectListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentProjectListBinding binding = DataBindingUtil
+        binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_project_list, container, false);
 
         binding.projectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        updateUI();
+        return binding.getRoot();
+    }
+
+    public void updateUI() {
+        List<Project> projects = mProjectList.getProjects();
+
         //Check để hiển thị recycler view hay empty view
-        if(mProjectList.getProjects().size()>0) {
+        if(projects.size()>0) {
             binding.projectRecyclerView.setVisibility(View.VISIBLE);
             binding.emptyView.setVisibility(View.GONE);
         }
@@ -52,9 +61,14 @@ public class ProjectListFragment extends Fragment {
             binding.emptyView.setVisibility(View.VISIBLE);
         }
 
-        binding.projectRecyclerView.setAdapter(new ProjectAdapter(mProjectList));
-
-        return binding.getRoot();
+        if(mAdapter == null) {
+            mAdapter = new ProjectAdapter(projects);
+            binding.projectRecyclerView.setAdapter(mAdapter);
+        }
+        else {
+            mAdapter.setProjects(projects);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -80,8 +94,8 @@ public class ProjectListFragment extends Fragment {
      */
     private class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder> {
         private List<Project> mProjects;
-        public ProjectAdapter(ProjectList projectList) {
-            mProjects = projectList.getProjects();
+        public ProjectAdapter(List<Project> projects) {
+            mProjects = projects;
         }
 
         @NonNull
@@ -104,6 +118,10 @@ public class ProjectListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mProjects.size();
+        }
+
+        public void setProjects(List<Project> projects) {
+            mProjects = projects;
         }
     }
 }

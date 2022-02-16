@@ -2,6 +2,7 @@ package com.hfad.todolist;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,18 @@ import com.hfad.todolist.models.ProjectList;
 
 
 public class AddProjectFragment extends DialogFragment {
+    CallBacks mCallBacks;
+
+    public interface CallBacks {
+        public void onExcuteProject(Project project);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mCallBacks = (CallBacks) context;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -33,8 +46,16 @@ public class AddProjectFragment extends DialogFragment {
 
                         String title = titleTextView.getText().toString();
                         String description = descTextView.getText().toString();
-                        ProjectList.getInstance(getActivity())
-                                .addProject(new Project(title, description));
+                        Project project = new Project(title, description);
+
+                        mCallBacks.onExcuteProject(project);
+                    }
+                })
+                .setNegativeButton(R.string.cancle_label, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 })
                 .create();
