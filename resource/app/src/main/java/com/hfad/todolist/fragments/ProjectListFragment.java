@@ -1,4 +1,4 @@
-package com.hfad.todolist;
+package com.hfad.todolist.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hfad.todolist.viewmodels.ProjectViewModel;
+import com.hfad.todolist.R;
 import com.hfad.todolist.databinding.FragmentProjectListBinding;
 import com.hfad.todolist.databinding.ListProjectItemBinding;
 import com.hfad.todolist.models.Project;
@@ -74,7 +76,7 @@ public class ProjectListFragment extends Fragment {
     /**
      * Setup ViewHolder
      */
-    private class ProjectHolder extends  RecyclerView.ViewHolder {
+    private class ProjectHolder extends  RecyclerView.ViewHolder{
         ListProjectItemBinding mBinding;
 
         public ProjectHolder(ListProjectItemBinding binding) {

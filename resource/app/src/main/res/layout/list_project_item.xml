@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="projectViewModel"
-            type="com.hfad.todolist.ProjectViewModel" />
+            type="com.hfad.todolist.viewmodels.ProjectViewModel" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardBackgroundColor="#fff"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:onClick="@{(v)->projectViewModel.onClick(v, projectViewModel.id)}">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

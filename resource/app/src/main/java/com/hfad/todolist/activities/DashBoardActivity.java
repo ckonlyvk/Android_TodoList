@@ -1,6 +1,5 @@
-package com.hfad.todolist;
+package com.hfad.todolist.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -9,13 +8,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.hfad.todolist.fragments.AddProjectFragment;
+import com.hfad.todolist.fragments.ProjectListFragment;
+import com.hfad.todolist.R;
 import com.hfad.todolist.models.Project;
 import com.hfad.todolist.models.ProjectList;
 
 public class DashBoardActivity extends AppCompatActivity
-    implements AddProjectFragment.CallBacks{
+    implements AddProjectFragment.CallBacks {
     ImageButton addProjectButton;
 
     @Override

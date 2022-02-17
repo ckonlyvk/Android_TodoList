@@ -1,9 +1,16 @@
-package com.hfad.todolist;
+package com.hfad.todolist.viewmodels;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.hfad.todolist.activities.TaskActivity;
 import com.hfad.todolist.models.Project;
+
+import java.util.UUID;
 
 
 public class ProjectViewModel extends BaseObservable {
@@ -13,7 +20,7 @@ public class ProjectViewModel extends BaseObservable {
         mProject = project;
     }
 
-    ProjectViewModel() {
+    public ProjectViewModel() {
     }
 
     public Project getProject() {
@@ -26,6 +33,11 @@ public class ProjectViewModel extends BaseObservable {
     }
 
     @Bindable
+    public UUID getId() {
+        return mProject.getId();
+    }
+
+    @Bindable
     public String getTitle() {
         return mProject.getTitle();
     }
@@ -33,5 +45,11 @@ public class ProjectViewModel extends BaseObservable {
     @Bindable
     public String getDescription() {
         return mProject.getDescription();
+    }
+
+    public void onClick(View view, UUID id) {
+        Context context = view.getContext();
+        Intent intent = TaskActivity.newIntent(context, id);
+        context.startActivity(intent);
     }
 }

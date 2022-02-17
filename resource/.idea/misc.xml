@@ -5,9 +5,12 @@
       <map>
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_dash_board.xml" value="0.18342391304347827" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_main.xml" value="0.18342391304347827" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_one_pane.xml" value="0.12467105263157895" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/dialog_add_project.xml" value="0.21" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/fragment_project_list.xml" value="0.12467105263157895" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/fragment_task_list.xml" value="0.12467105263157895" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/list_project_item.xml" value="0.12467105263157895" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/list_task_item.xml" value="0.18" />
       </map>
     </option>
   </component>

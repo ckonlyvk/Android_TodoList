@@ -1,4 +1,4 @@
-package com.hfad.todolist;
+package com.hfad.todolist.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.hfad.todolist.R;
 import com.hfad.todolist.models.Project;
 import com.hfad.todolist.models.ProjectList;
 
