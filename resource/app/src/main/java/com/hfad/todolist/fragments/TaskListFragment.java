@@ -50,7 +50,7 @@ public class TaskListFragment extends Fragment {
         mBinding.taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
-        
+
         return mBinding.getRoot();
     }
 

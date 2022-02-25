@@ -82,7 +82,7 @@
             android:layout_height="100dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="#ff5d9e"
+            app:cardBackgroundColor="@color/pink"
             android:layout_marginHorizontal="12dp">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
             android:layout_height="100dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="#8A63F4"
+            app:cardBackgroundColor="@color/purple"
             android:layout_marginHorizontal="12dp">
 <!--            7E50FB-->
             <LinearLayout
@@ -152,7 +152,7 @@
             android:layout_height="100dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="#4DD0E1"
+            app:cardBackgroundColor="@color/blue_pastel"
             android:layout_marginHorizontal="12dp">
 
             <LinearLayout

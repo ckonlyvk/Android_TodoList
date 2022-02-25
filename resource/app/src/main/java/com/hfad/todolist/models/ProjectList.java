@@ -51,6 +51,22 @@ public class ProjectList {
         mDatabase.insert(ProjectTable.NAME, null, values);
     }
 
+    public void updateProject(Project project) {
+        ContentValues values = getContentValues(project);
+        mDatabase.update(
+                ProjectTable.NAME,
+                values,
+                ProjectTable.Cols.UUID + " = ?",
+                new String[] { project.getId().toString()});
+    }
+
+    public void deleteProject(UUID projectId) {
+        mDatabase.delete(
+                ProjectTable.NAME,
+                ProjectTable.Cols.UUID + " = ?",
+                new String[] { projectId.toString()});
+    }
+
     private ProjectCursorWrapper queryProjects(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ProjectTable.NAME,

@@ -22,9 +22,14 @@
     <string name="add_label">Add</string>
     <string name="cancle_label">Cancle</string>
 
+    <string name="edit_project_label">Edit Project</string>
+    <string name="edit_label">Save</string>
+
     <string name="title_label">Title</string>
     <string name="title_placeholder">Please input title</string>
     <string name="description_label">Description</string>
     <string name="description_placeholder">Please input description</string>
 
+<!--    Menu-->
+    <string name="delete_project_label">Delete Project</string>
 </resources>

@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/drawable/blue_outline_button.xml" value="0.13486842105263158" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/drawable/my_button_outlined.xml" value="0.13486842105263158" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/drawable/pink_outline_button.xml" value="0.13486842105263158" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/drawable/test.xml" value="0.13486842105263158" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_dash_board.xml" value="0.18342391304347827" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_main.xml" value="0.18342391304347827" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/activity_one_pane.xml" value="0.12467105263157895" />
@@ -10,7 +14,8 @@
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/fragment_project_list.xml" value="0.12467105263157895" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/fragment_task_list.xml" value="0.12467105263157895" />
         <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/list_project_item.xml" value="0.12467105263157895" />
-        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/list_task_item.xml" value="0.18" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/layout/list_task_item.xml" value="0.22" />
+        <entry key="..\:/Dev/Android/Projects/todoist_app/resource/app/src/main/res/menu/task_menu.xml" value="0.1234527687296417" />
       </map>
     </option>
   </component>
