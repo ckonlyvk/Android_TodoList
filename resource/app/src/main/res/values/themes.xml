@@ -13,4 +13,32 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="DefaultButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:background">@drawable/default_button</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="CancelButton" parent="DefaultButton">
+        <item name="android:background">@drawable/cancel_button</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="PinkOutlineButton" parent="DefaultButton">
+        <item name="android:background">@drawable/pink_outline_button</item>
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
+    <style name="BlueOutlineButton" parent="DefaultButton">
+        <item name="android:background">@drawable/blue_outline_button</item>
+        <item name="android:textColor">@color/blue_pastel</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
 </resources>

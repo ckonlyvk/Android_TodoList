@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.hfad.todolist.database.ProjectCursorWrapper;
 import com.hfad.todolist.database.TaskBaseHelper;
 import com.hfad.todolist.database.TaskCursorWrapper;
+import com.hfad.todolist.database.TodoBaseHelper;
 import com.hfad.todolist.database.TodoDBSchema;
 import com.hfad.todolist.database.TodoDBSchema.TaskTable;
 
@@ -26,7 +27,7 @@ public class TaskList {
     private TaskList(Context context) {
         mTasks = new ArrayList<Task>();
         mContext = context.getApplicationContext();
-        mDatabase = new TaskBaseHelper(mContext)
+        mDatabase = new TodoBaseHelper(mContext)
                 .getWritableDatabase();
     }
 
@@ -72,20 +73,17 @@ public class TaskList {
 
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
-        for(int i = 0 ;i< 20; i++) {
-            tasks.add(new Task("Task" + i, "This i a task" + i));
+        TaskCursorWrapper cursor = queryTasks(null,null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                tasks.add(cursor.getTask());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
         }
-//        TaskCursorWrapper cursor = queryTasks(null,null);
-//
-//        try {
-//            cursor.moveToFirst();
-//            while (!cursor.isAfterLast()) {
-//                tasks.add(cursor.getTask());
-//                cursor.moveToNext();
-//            }
-//        } finally {
-//            cursor.close();
-//        }
         return tasks;
     }
 

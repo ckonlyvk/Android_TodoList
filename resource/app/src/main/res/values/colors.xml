@@ -13,4 +13,8 @@
     <color name="pink">#ff5d9e</color>
     <color name="purple">#8e76fc</color>
     <color name="blue_pastel">#4DD0E1</color>
+    <color name="dark_grey">#A9A9A9</color>
+    <color name="hemphasic_text_color">#CC000000</color>
+    <color name="memphasic_text_color">#99000000</color>
+    <color name="lemphasic_text_color">#61000000</color>
 </resources>

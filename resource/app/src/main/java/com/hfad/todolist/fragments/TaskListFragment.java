@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,10 +25,13 @@ import com.hfad.todolist.viewmodels.TaskViewModel;
 
 import java.util.List;
 
-public class TaskListFragment extends Fragment {
+public class TaskListFragment extends Fragment
+    implements AddTaskFragment.CallBacks{
     private FragmentTaskListBinding mBinding;
     private TaskList mTaskList;
     private TaskAdapter mAdapter;
+
+    private boolean showFormAddTask = false;
 
     public static Fragment newInstance() {
         return new TaskListFragment();
@@ -49,9 +53,37 @@ public class TaskListFragment extends Fragment {
 
         mBinding.taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mBinding.addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toogleFormAddTask();
+            }
+        });
+
+        FragmentManager fm = getChildFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_add_task);
+        if(fragment == null) {
+            fragment = AddTaskFragment.newInstance();
+            fm.beginTransaction()
+                    .add(R.id.fragment_add_task, fragment)
+                    .commit();
+        }
+
         updateUI();
 
         return mBinding.getRoot();
+    }
+
+    private void toogleFormAddTask() {
+        showFormAddTask = !showFormAddTask;
+        if(showFormAddTask) {
+            mBinding.fragmentAddTask.setVisibility(View.VISIBLE);
+            mBinding.addTaskButton.setVisibility(View.GONE);
+        }
+        else {
+            mBinding.fragmentAddTask.setVisibility(View.GONE);
+            mBinding.addTaskButton.setVisibility(View.VISIBLE);
+        }
     }
 
     public void updateUI() {
@@ -75,6 +107,17 @@ public class TaskListFragment extends Fragment {
             mAdapter.setTasks(tasks);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onExecuteTask(Task task) {
+        TaskList.getInstance(getActivity()).addTask(task);
+        showFormAddTask = false;
+    }
+
+    @Override
+    public void onCancel() {
+        showFormAddTask = false;
     }
 
     /**

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.hfad.todolist.database.ProjectBaseHelper;
 import com.hfad.todolist.database.ProjectCursorWrapper;
+import com.hfad.todolist.database.TodoBaseHelper;
 import com.hfad.todolist.database.TodoDBSchema;
 import com.hfad.todolist.database.TodoDBSchema.ProjectTable;
 
@@ -24,7 +25,7 @@ public class ProjectList {
     private ProjectList(Context context) {
         mProjects = new ArrayList<Project>();
         mContext = context.getApplicationContext();
-        mDatabase = new ProjectBaseHelper(mContext)
+        mDatabase = new TodoBaseHelper(mContext)
                 .getWritableDatabase();
     }
 

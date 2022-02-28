@@ -7,11 +7,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.hfad.todolist.R;
@@ -106,5 +108,17 @@ public class AddProjectFragment extends DialogFragment {
                     }
                 })
                 .create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        Button positiveButton =  ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
+//        positiveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.default_button, null));
+//        positiveButton.setTextColor(getResources().getColor(R.color.white, null));
+//
+//
+//        Button negativeButton =  ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_NEGATIVE);
+//        negativeButton.setTextColor(getResources().getColor(R.color.blue, null));
     }
 }

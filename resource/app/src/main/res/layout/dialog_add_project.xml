@@ -33,21 +33,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="10dp">
+        android:layout_marginTop="20dp">
         <EditText
             android:id="@+id/input_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/title_label" />
+            android:hint="@string/title_label"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/custom_title_icon"
+            android:background="@drawable/custom_input"/>
 
         <EditText
             android:id="@+id/input_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/description_label" />
+            android:hint="@string/description_label"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/custom_subtitle_icon"
+            android:background="@drawable/custom_input"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 <!--    <RelativeLayout-->

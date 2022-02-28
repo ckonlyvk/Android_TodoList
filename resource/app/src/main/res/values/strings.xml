@@ -17,8 +17,9 @@
     <string name="see_all_label">See All</string>
     <string name="empty_label">No Data</string>
 
-<!--    Dialog-->
     <string name="add_project_label">Add New Project</string>
+    <string name="add_task_label">Add New Task</string>
+
     <string name="add_label">Add</string>
     <string name="cancle_label">Cancle</string>
 
@@ -32,4 +33,6 @@
 
 <!--    Menu-->
     <string name="delete_project_label">Delete Project</string>
+    <string name="date_picker_title">"Date of Task"</string>
+    <string name="time_picker_title">"Time of Task"</string>
 </resources>
