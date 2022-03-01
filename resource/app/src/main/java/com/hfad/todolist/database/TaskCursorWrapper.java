@@ -19,16 +19,20 @@ public class TaskCursorWrapper extends CursorWrapper {
         String uuidString = getString(getColumnIndex(TaskTable.Cols.UUID));
         String title = getString(getColumnIndex(TaskTable.Cols.TITLE));
         String description = getString(getColumnIndex(TaskTable.Cols.DESCRIPTION));
-        long dealine = getLong(getColumnIndex(TaskTable.Cols.DESCRIPTION));
-        int isCompleted = getInt(getColumnIndex(TaskTable.Cols.DEAD_LINE));
-        String projectId = getString(getColumnIndex(TaskTable.Cols.IS_COMPLETED));
+        int isCompleted = getInt(getColumnIndex(TaskTable.Cols.IS_COMPLETED));
+        long deadline= getLong(getColumnIndex(TaskTable.Cols.DEAD_LINE));
+        String projectId = getString(getColumnIndex(TaskTable.Cols.PROJECT_ID));
 
         Task task = new Task(UUID.fromString(uuidString));
         task.setTitle(title);
         task.setDescription(description);
-        task.setDeadline(new Date(dealine));
         task.setIsCompleted(isCompleted != 0);
-        task.setProjectId(UUID.fromString(projectId));
+        if(deadline != 0) {
+            task.setDeadline(new Date(deadline));
+        }
+        if(projectId != null) {
+            task.setProjectId(UUID.fromString(projectId));
+        }
 
         return task;
     }

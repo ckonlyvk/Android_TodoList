@@ -1,9 +1,11 @@
 package com.hfad.todolist.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,6 +76,20 @@ public class TaskListFragment extends Fragment
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onExecuteTask(Task task) {
+        TaskList.getInstance(getActivity()).addTask(task);
+        updateItem(task);
+        toogleFormAddTask();
+        hideKeyboard(getActivity());
+    }
+
+    @Override
+    public void onCancel() {
+        toogleFormAddTask();
+        hideKeyboard(getActivity());
+    }
+
     private void toogleFormAddTask() {
         showFormAddTask = !showFormAddTask;
         if(showFormAddTask) {
@@ -109,15 +125,22 @@ public class TaskListFragment extends Fragment
         }
     }
 
-    @Override
-    public void onExecuteTask(Task task) {
-        TaskList.getInstance(getActivity()).addTask(task);
-        showFormAddTask = false;
+    public void updateItem(Task task) {
+        if(mAdapter != null) {
+            mAdapter.addTask(task);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
-    @Override
-    public void onCancel() {
-        showFormAddTask = false;
+    private void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -172,5 +195,14 @@ public class TaskListFragment extends Fragment
         public void setTasks(List<Task> tasks) {
             this.mTasks = tasks;
         }
+
+        public void addTask(Task task) {mTasks.add(task);}
+//        public void updateTask(Task task) {
+//            for(int i = 0; i < mTasks.size(); i++) {
+//                if(mTasks.get(i).getId().equals(task.getId())) {
+//                    mTasks.replace()
+//                }
+//            }
+//        }
     }
 }

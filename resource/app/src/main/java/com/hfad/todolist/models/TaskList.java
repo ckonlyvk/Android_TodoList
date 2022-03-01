@@ -46,9 +46,20 @@ public class TaskList {
         values.put(TaskTable.Cols.UUID, task.getId().toString());
         values.put(TaskTable.Cols.TITLE, task.getTitle());
         values.put(TaskTable.Cols.DESCRIPTION, task.getDescription());
-        values.put(TaskTable.Cols.DEAD_LINE, task.getDeadline().getTime());
         values.put(TaskTable.Cols.IS_COMPLETED, task.isIsCompleted() ? 1 : 0);
-        values.put(TaskTable.Cols.PROJECT_ID, task.getProjectId().toString());
+        if(task.getProjectId() != null) {
+            values.put(TaskTable.Cols.PROJECT_ID, task.getProjectId().toString());
+        }
+        else {
+            values.putNull(TaskTable.Cols.PROJECT_ID);
+        }
+        if(task.getDeadline() != null) {
+            values.put(TaskTable.Cols.DEAD_LINE, task.getDeadline().getTime());
+        }
+        else {
+            values.putNull(TaskTable.Cols.DEAD_LINE);
+        }
+
         return values;
     }
 

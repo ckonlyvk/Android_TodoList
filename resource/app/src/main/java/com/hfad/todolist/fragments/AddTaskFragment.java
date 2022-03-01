@@ -1,10 +1,12 @@
 package com.hfad.todolist.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -156,4 +158,5 @@ public class AddTaskFragment extends Fragment {
         mBinding.timePickerButton.setText(timeFormat);
         mBinding.datePickerButton.setText(dateFormat);
     }
+
 }

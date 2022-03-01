@@ -50,11 +50,13 @@ public class TaskViewModel extends BaseObservable {
 
     @Bindable
     public String getDate() {
-        return new SimpleDateFormat("EEEE, MMM dd, YYYY").format(mTask.getDeadline());
+        if(mTask.getDeadline() == null) return "No Date";
+        return new SimpleDateFormat("MMM dd, YYYY").format(mTask.getDeadline());
     }
 
     @Bindable
     public String getTime() {
+        if(mTask.getDeadline() == null) return "No Time";
         return new SimpleDateFormat("HH : mm").format(mTask.getDeadline());
     }
 }
