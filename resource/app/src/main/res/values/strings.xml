@@ -3,11 +3,15 @@
 
     <string name="welcome_label">Welcome Back</string>
 
+    <string name="no_task">You don\'t have task in today</string>
+    <string name="create_now">Create now</string>
     <string name="banner_subtitle">Tasks in today remain</string>
-    <plurals name="banner_title">
+    <plurals name="num_tasks">
         <item quantity="one">%1$d task</item>
         <item quantity="other">%1$d tasks</item>
     </plurals>
+
+
 
     <string name="inbox_label">Inbox</string>
     <string name="today_label">Today</string>

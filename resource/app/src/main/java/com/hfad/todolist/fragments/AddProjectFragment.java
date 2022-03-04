@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class AddProjectFragment extends DialogFragment {
     private TextView mDialogTitle;
     private EditText mTitleInput;
     private EditText mDescriptionInput;
+    private Button mCancelButton;
+    private Button mAddButton;
 
     CallBacks mCallBacks;
 
@@ -56,7 +59,7 @@ public class AddProjectFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        if(args != null) {
+        if (args != null) {
             UUID projectId = (UUID) args.getSerializable(ARG_PROJECT_ID);
             mProject = ProjectList.getInstance(getActivity())
                     .getProject(projectId);
@@ -71,35 +74,60 @@ public class AddProjectFragment extends DialogFragment {
                 .inflate(R.layout.dialog_add_project, null);
 
         mDialogTitle = v.findViewById(R.id.dialog_title);
-        mTitleInput =  v.findViewById(R.id.input_title);
-        mDescriptionInput =  v.findViewById(R.id.input_description);
+        mTitleInput = v.findViewById(R.id.input_title);
+        mDescriptionInput = v.findViewById(R.id.input_description);
+        mCancelButton = v.findViewById(R.id.cancel_button);
+        mAddButton = v.findViewById(R.id.add_task_button);
 
-        if(mProject != null) {
+        if (mProject != null) {
             mDialogTitle.setText(R.string.edit_project_label);
             mTitleInput.setText(mProject.getTitle());
             mDescriptionInput.setText(mProject.getDescription());
         }
-
+//
+//        mCancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                dismiss();
+//            }
+//        });
+//
+//        mAddButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String title = mTitleInput.getText().toString();
+//                String description = mDescriptionInput.getText().toString();
+//                if(mProject != null) {
+//                    mProject.setTitle(title);
+//                    mProject.setDescription(description);
+//                }
+//                else {
+//                    mProject = new Project(title, description);
+//                }
+//
+//                mCallBacks.onExcuteProject(mProject);
+////                dismiss();
+//            }
+//        });
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setPositiveButton(
-                    mProject != null ? R.string.edit_label : R.string.add_label,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String title = mTitleInput.getText().toString();
-                            String description = mDescriptionInput.getText().toString();
-                            if(mProject != null) {
-                                mProject.setTitle(title);
-                                mProject.setDescription(description);
-                            }
-                            else {
-                                mProject = new Project(title, description);
-                            }
+                        mProject != null ? R.string.edit_label : R.string.add_label,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String title = mTitleInput.getText().toString();
+                                String description = mDescriptionInput.getText().toString();
+                                if (mProject != null) {
+                                    mProject.setTitle(title);
+                                    mProject.setDescription(description);
+                                } else {
+                                    mProject = new Project(title, description);
+                                }
 
-                            mCallBacks.onExcuteProject(mProject);
-                        }
-                })
+                                mCallBacks.onExcuteProject(mProject);
+                            }
+                        })
                 .setNegativeButton(R.string.cancle_label, new DialogInterface.OnClickListener() {
 
                     @Override
@@ -111,14 +139,7 @@ public class AddProjectFragment extends DialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-//        Button positiveButton =  ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
-//        positiveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.default_button, null));
-//        positiveButton.setTextColor(getResources().getColor(R.color.white, null));
-//
-//
-//        Button negativeButton =  ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_NEGATIVE);
-//        negativeButton.setTextColor(getResources().getColor(R.color.blue, null));
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
     }
 }

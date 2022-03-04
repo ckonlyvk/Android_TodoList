@@ -17,8 +17,8 @@ import androidx.fragment.app.FragmentResultListener;
 
 import com.hfad.todolist.R;
 import com.hfad.todolist.databinding.FragmentAddTaskBinding;
-import com.hfad.todolist.generated.callback.OnClickListener;
 import com.hfad.todolist.models.Task;
+import com.hfad.todolist.models.TaskList;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,7 +27,8 @@ import java.util.UUID;
 
 public class AddTaskFragment extends Fragment {
     public static final String REQUEST_DATE = "date_of_task";
-    public static final String ARG_TASK_ID = "task_id";
+    private static final String ARG_TASK_ID = "task_id";
+    private static final String ARG_PROJECT_ID = "project_id";
     private final String TAG = "AddTaskFragment";
     private FragmentAddTaskBinding mBinding;
 
@@ -43,8 +44,9 @@ public class AddTaskFragment extends Fragment {
         return new AddTaskFragment();
     }
 
-    static public Fragment newInstance(UUID taskId) {
+    static public Fragment newInstance(@Nullable UUID projectId, @Nullable UUID taskId) {
         Bundle args = new Bundle();
+        args.putSerializable(ARG_PROJECT_ID, projectId);
         args.putSerializable(ARG_TASK_ID, taskId);
         AddTaskFragment fragment = new AddTaskFragment();
         //Đính kèm đối tượng Bundle với fragment vừa khởi tạo
@@ -58,7 +60,15 @@ public class AddTaskFragment extends Fragment {
         mCallBacks = (CallBacks) getParentFragment();
         Bundle args = getArguments();
         if(args != null) {
-            UUID crimeId = (UUID) args.getSerializable(ARG_TASK_ID);
+            UUID projectId = (UUID) args.getSerializable(ARG_PROJECT_ID);
+            UUID taskId = (UUID) args.getSerializable(ARG_TASK_ID);
+            if(taskId != null) {
+                mTask = TaskList.getInstance(getActivity()).getTask(taskId);
+            }
+            if(mTask == null) {
+                mTask = new Task();
+                mTask.setProjectId(projectId);
+            }
         }
         else {
             mTask = new Task();
@@ -67,7 +77,9 @@ public class AddTaskFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_add_task, container, false);
 

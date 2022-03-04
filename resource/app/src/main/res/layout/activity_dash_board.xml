@@ -49,6 +49,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/banner_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/banner_subtitle"
@@ -57,6 +58,7 @@
             android:layout_marginLeft="30dp"/>
 
         <TextView
+            android:id="@+id/banner_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2 Tasks"
@@ -78,6 +80,7 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/all_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardElevation="10dp"
@@ -106,6 +109,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/today_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardElevation="10dp"
@@ -148,6 +152,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/upcoming_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardElevation="10dp"

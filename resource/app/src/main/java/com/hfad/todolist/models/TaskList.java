@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
 
 import com.hfad.todolist.database.ProjectCursorWrapper;
 import com.hfad.todolist.database.TaskBaseHelper;
@@ -82,6 +83,22 @@ public class TaskList {
         return new TaskCursorWrapper(cursor);
     }
 
+    public Task getTask(UUID id) {
+        TaskCursorWrapper cursor = queryTasks(
+                TodoDBSchema.ProjectTable.Cols.UUID + " = ?",
+                new String[] { id.toString() }
+        );
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getTask();
+        } finally {
+            cursor.close();
+        }
+    }
+
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
         TaskCursorWrapper cursor = queryTasks(null,null);
@@ -119,19 +136,27 @@ public class TaskList {
     public List<Task> getTasksByDate(Date date) {
         List<Task> tasks = new ArrayList<>();
         TaskCursorWrapper cursor = queryTasks(
-                TaskTable.Cols.DEAD_LINE + " = ? ",
-                new String[] {String.valueOf(date.getTime())});
+                TaskTable.Cols.DEAD_LINE + " IS NOT NULL", new String[]{});
 
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                tasks.add(cursor.getTask());
+                Task task = cursor.getTask();
+                if(isSameDate(date, task.getDeadline())) {
+                    tasks.add(cursor.getTask());
+                }
                 cursor.moveToNext();
             }
         } finally {
             cursor.close();
         }
         return tasks;
+    }
+
+    private boolean isSameDate(Date date1, Date date2) {
+        String strDate1 = new SimpleDateFormat("DD-MM-YYYY").format(date1);
+        String strDate2 = new SimpleDateFormat("DD-MM-YYYY").format(date2);
+        return strDate1.equals(strDate2);
     }
 
     public void updateTask(Task task) {

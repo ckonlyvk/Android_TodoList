@@ -1,9 +1,12 @@
 package com.hfad.todolist.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,17 +16,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hfad.todolist.viewmodels.ProjectViewModel;
+import com.hfad.todolist.activities.TaskActivity;
 import com.hfad.todolist.R;
-import com.hfad.todolist.databinding.FragmentProjectListBinding;
-import com.hfad.todolist.databinding.ListProjectItemBinding;
+import com.hfad.todolist.adapter.ProjectAdapter;
 import com.hfad.todolist.models.Project;
 import com.hfad.todolist.models.ProjectList;
 
 import java.util.List;
 
 public class ProjectListFragment extends Fragment {
-    private FragmentProjectListBinding binding;
+    private RecyclerView mRecyclerView;
+    private LinearLayout mEmptyView;
+
     private ProjectList mProjectList;
     private ProjectAdapter mAdapter;
 
@@ -42,14 +46,19 @@ public class ProjectListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil
-                .inflate(inflater, R.layout.fragment_project_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_project_list, container, false);
 
-        binding.projectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        inflateView(view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
-        return binding.getRoot();
+        return view;
+    }
+
+    void inflateView(View view) {
+        mRecyclerView = view.findViewById(R.id.project_recycler_view);
+        mEmptyView = view.findViewById(R.id.empty_view);
     }
 
     public void updateUI() {
@@ -57,17 +66,17 @@ public class ProjectListFragment extends Fragment {
 
         //Check để hiển thị recycler view hay empty view
         if(projects.size()>0) {
-            binding.projectRecyclerView.setVisibility(View.VISIBLE);
-            binding.emptyView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.GONE);
         }
         else {
-            binding.projectRecyclerView.setVisibility(View.GONE);
-            binding.emptyView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
         }
 
         if(mAdapter == null) {
             mAdapter = new ProjectAdapter(projects);
-            binding.projectRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(mAdapter);
         }
         else {
             mAdapter.setProjects(projects);
@@ -75,57 +84,5 @@ public class ProjectListFragment extends Fragment {
         }
     }
 
-    /**
-     * Setup ViewHolder
-     */
-    private class ProjectHolder extends  RecyclerView.ViewHolder{
-        ListProjectItemBinding mBinding;
 
-        public ProjectHolder(ListProjectItemBinding binding) {
-            super(binding.getRoot());
-            mBinding = binding;
-            mBinding.setProjectViewModel(new ProjectViewModel());
-        }
-
-        public void bindingData(Project project) {
-            mBinding.getProjectViewModel().setProject(project);
-            mBinding.executePendingBindings();
-        }
-    }
-
-    /**Setup
-     * Setup Adapter
-     */
-    private class ProjectAdapter extends RecyclerView.Adapter<ProjectHolder> {
-        private List<Project> mProjects;
-        public ProjectAdapter(List<Project> projects) {
-            mProjects = projects;
-        }
-
-        @NonNull
-        @Override
-        public ProjectHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            ListProjectItemBinding binding = DataBindingUtil.inflate(
-                    layoutInflater, R.layout.list_project_item,
-                    parent, false);
-
-            return new ProjectHolder(binding);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ProjectHolder holder, int position) {
-            Project project = mProjects.get(position);
-            holder.bindingData(project);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mProjects.size();
-        }
-
-        public void setProjects(List<Project> projects) {
-            mProjects = projects;
-        }
-    }
 }
