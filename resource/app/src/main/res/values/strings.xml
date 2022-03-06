@@ -28,6 +28,7 @@
     <string name="cancle_label">Cancle</string>
 
     <string name="edit_project_label">Edit Project</string>
+    <string name="edit_task_label">Edit Task</string>
     <string name="edit_label">Save</string>
 
     <string name="title_label">Title</string>
@@ -37,6 +38,7 @@
 
 <!--    Menu-->
     <string name="delete_project_label">Delete Project</string>
+    <string name="delete_task_label">Delete Task</string>
     <string name="date_picker_title">"Date of Task"</string>
     <string name="time_picker_title">"Time of Task"</string>
 </resources>

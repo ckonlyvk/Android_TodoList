@@ -171,6 +171,18 @@ public class TaskList {
                 new String[] { uuidString });
     }
 
+    public void deleteTaskById(UUID taskId) {
+        mDatabase.delete(TaskTable.NAME,
+                TaskTable.Cols.UUID+ " = ?",
+                new String[]{taskId.toString()});
+    }
+
+    public void deleteTaskByProjectId(UUID projectId) {
+        mDatabase.delete(TaskTable.NAME,
+                TaskTable.Cols.PROJECT_ID+ " = ?",
+                new String[]{projectId.toString()});
+    }
+
     public int countTask(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 TaskTable.NAME,
