@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1050244082612",
+    "project_id": "todoist-316206",
+    "storage_bucket": "todoist-316206.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050244082612:android:c0695eaf2427fd1d92a0e1",
+        "android_client_info": {
+          "package_name": "com.hfad.todolist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050244082612-8ide9tcvth6k7aorshpgeiecn8frgi4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqruBJIFfVzxD3TFEvcTspCE89lFMTcsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050244082612-8ide9tcvth6k7aorshpgeiecn8frgi4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

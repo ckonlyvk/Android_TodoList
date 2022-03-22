@@ -4,48 +4,53 @@ import static com.hfad.todolist.activities.TaskActivity.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.hfad.todolist.databinding.ActivityDashBoardBinding;
 import com.hfad.todolist.fragments.AddProjectFragment;
-import com.hfad.todolist.fragments.ProjectListFragment;
+import com.hfad.todolist.fragments.ProjectsFragment;
 import com.hfad.todolist.R;
 import com.hfad.todolist.models.Project;
 import com.hfad.todolist.models.ProjectList;
 import com.hfad.todolist.models.TaskList;
+import com.hfad.todolist.viewmodels.DashBoardViewModel;
 
 import java.util.Date;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class DashBoardActivity extends AppCompatActivity
-    implements AddProjectFragment.CallBacks, View.OnClickListener{
-    private TextView tvBannerTitle, tvBannerSubtitle;
-    private CardView mAllButton, mTodayButton, mUpcomingButton;
-    private ImageButton mAddProjectButton;
+        implements AddProjectFragment.CallBacks {
+    private ActivityDashBoardBinding binding;
+    private DashBoardViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board);
+        binding = ActivityDashBoardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        getSupportActionBar().hide();
-
-        inflateView();
+        viewModel = new ViewModelProvider(this).get(DashBoardViewModel.class);
+        setListeners();
 
         setUpBanner();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.project_list_fragment);
 
-        if(fragment==null) {
-            fragment = ProjectListFragment.newInstance();
+        if (fragment == null) {
+            fragment = ProjectsFragment.newInstance();
             fragmentManager.beginTransaction()
                     .add(R.id.project_list_fragment, fragment)
                     .commit();
@@ -53,37 +58,11 @@ public class DashBoardActivity extends AppCompatActivity
 
     }
 
-    private void inflateView() {
-        tvBannerTitle = findViewById(R.id.banner_title);
-        tvBannerSubtitle = findViewById(R.id.banner_subtitle);
-        mAllButton = findViewById(R.id.all_button);
-        mTodayButton = findViewById(R.id.today_button);
-        mUpcomingButton = findViewById(R.id.upcoming_button);
-        mAddProjectButton = findViewById(R.id.btn_add_project);
-
-        mAllButton.setOnClickListener(this);
-        mTodayButton.setOnClickListener(this);
-        mUpcomingButton.setOnClickListener(this);
-        mAddProjectButton.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.all_button:
-                startTaskActivity(TaskType.ALL);
-                break;
-            case R.id.today_button:
-                startTaskActivity(TaskType.TODAY);
-                break;
-            case R.id.upcoming_button:
-                break;
-            case R.id.btn_add_project:
-                showAddProjectDialog();
-                break;
-            default:
-                break;
-        }
+    private void setListeners() {
+        binding.allButton.setOnClickListener(view -> startTaskActivity(TaskType.ALL));
+        binding.todayButton.setOnClickListener(view -> startTaskActivity(TaskType.TODAY));
+//        binding.upcomingButton.setOnClickListener(view -> startTaskActivity(TaskType.ALL));
+        binding.btnAddProject.setOnClickListener(view -> showAddProjectDialog());
     }
 
     void setUpBanner() {
@@ -91,15 +70,14 @@ public class DashBoardActivity extends AppCompatActivity
         int numTasks = TaskList.getInstance(this)
                 .getTasksByDate(now).size();
 
-        if(numTasks == 0) {
-            tvBannerTitle.setText(R.string.create_now);
-            tvBannerSubtitle.setText(R.string.no_task);
-        }
-        else {
+        if (numTasks == 0) {
+            binding.bannerTitle.setText(R.string.create_now);
+            binding.bannerSubtitle.setText(R.string.no_task);
+        } else {
             String title = getResources()
                     .getQuantityString(R.plurals.num_tasks, numTasks, numTasks);
-            tvBannerTitle.setText(title);
-            tvBannerSubtitle.setText(R.string.banner_subtitle);
+            binding.bannerTitle.setText(title);
+            binding.bannerSubtitle.setText(R.string.tasks_in_today_remain);
         }
     }
 
@@ -116,13 +94,17 @@ public class DashBoardActivity extends AppCompatActivity
 
     @Override
     public void onExcuteProject(Project project) {
-        ProjectList.getInstance(DashBoardActivity.this)
-                .addProject(project);
-        ProjectListFragment projectListFragment = (ProjectListFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.project_list_fragment);
-
-        if(projectListFragment!= null)
-            projectListFragment.updateUI();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(viewModel.addProject(project)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    ProjectsFragment projectsFragment = (ProjectsFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.project_list_fragment);
+                    projectsFragment.addNewProject(project);
+                    compositeDisposable.dispose();
+                })
+        );
     }
 
 }

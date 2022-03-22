@@ -4,7 +4,7 @@
     <item
         android:id="@+id/edit_project"
         android:icon="@drawable/edit_icon"
-        android:title="@string/edit_project_label"
+        android:title="@string/edit_project"
         app:showAsAction="never|withText"/>
 
     <item

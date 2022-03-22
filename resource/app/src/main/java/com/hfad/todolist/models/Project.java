@@ -1,10 +1,25 @@
 package com.hfad.todolist.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Project {
+@Entity(tableName = "project")
+public class Project implements Serializable {
+    @PrimaryKey
+    @NonNull
+    @SerializedName("id")
     UUID mId;
+
+    @SerializedName("title")
     String mTitle;
+
+    @SerializedName("description")
     String mDescription;
 
     public Project(UUID id) {

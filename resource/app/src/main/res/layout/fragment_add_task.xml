@@ -15,7 +15,7 @@
             android:drawableStart="@drawable/custom_title_icon"
             android:drawablePadding="8dp"
             android:ems="10"
-            android:hint="@string/title_label" />
+            android:hint="@string/title" />
 
         <EditText
             android:id="@+id/input_description"
@@ -26,7 +26,7 @@
             android:drawableStart="@drawable/custom_subtitle_icon"
             android:drawablePadding="8dp"
             android:ems="10"
-            android:hint="@string/description_label" />
+            android:hint="@string/description" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                     android:id="@+id/cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancle_label"
+                    android:text="@string/cancle"
                     style="@style/CancelButton"/>
 
                 <Button
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="@string/add_label"
+                    android:text="@string/add"
                     style="@style/DefaultButton"/>
             </LinearLayout>
 

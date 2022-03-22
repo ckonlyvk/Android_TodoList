@@ -20,7 +20,7 @@
             android:drawableLeft="@drawable/outline_add_circle"
             android:text="@string/add_task_label"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_text"
             app:backgroundTint="@null" />
 
         <FrameLayout
